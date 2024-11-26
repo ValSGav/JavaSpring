@@ -5,8 +5,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 public class Person {
-    private String firstName;
-    private String lastName;
+    private final String firstName;
+    private final String lastName;
     private int age;
 
     public Person(String firstName, String lastName, int age) {
@@ -40,5 +40,7 @@ public class Person {
         return new HashCodeBuilder( 17, 37 ).append( firstName ).append( lastName ).append( age ).toHashCode();
     }
 
-
+    public void setAge(int age) {
+        this.age = age;
+    }
 }
