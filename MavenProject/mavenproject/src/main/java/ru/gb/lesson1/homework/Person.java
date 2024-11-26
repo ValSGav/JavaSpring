@@ -1,4 +1,4 @@
-package ru.gb;
+package ru.gb.lesson1.homework;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
