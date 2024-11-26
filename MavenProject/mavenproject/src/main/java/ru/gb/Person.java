@@ -23,16 +23,16 @@ public class Person {
 
         Person person = (Person) o;
 
-        return new EqualsBuilder().append( age, person.age ).append( firstName, person.firstName ).append( lastName, person.lastName ).isEquals();
+        return new EqualsBuilder()
+                    .append( age, person.age )
+                    .append( firstName, person.firstName )
+                    .append( lastName, person.lastName )
+                    .isEquals();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder( this )
-                .append( "firstName", firstName )
-                .append( "lastName", lastName )
-                .append( "age", age )
-                .toString();
+        return new ToStringBuilder( this ).append( "firstName", firstName ).append( "lastName", lastName ).append( "age", age ).toString();
     }
 
     @Override
