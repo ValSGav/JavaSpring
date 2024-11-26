@@ -1,8 +1,12 @@
 package ru.gb.lesson1.homework;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
+
+import java.util.stream.Stream;
 
 public class Person {
     private final String firstName;
@@ -42,5 +46,18 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String serialize(){
+        Gson gSon = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        return  gSon.toJson( this );   }
+
+    static Person deserialize(String json){
+        Gson gSon = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        return gSon.fromJson(json, Person.class );
     }
 }
