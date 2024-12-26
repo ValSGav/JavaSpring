@@ -1,6 +1,7 @@
 package ru.gb.springdemo.api;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/book")
 public class BookController {
+    @Autowired
     private BookService service;
 
     @GetMapping("{id}")
@@ -36,12 +38,14 @@ public class BookController {
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.status( HttpStatus.OK ).body( true );
+        return ResponseEntity.status( HttpStatus.OK ).build();
     }
 
-    @PutMapping("{name}")
-    public ResponseEntity<Book> createBook(@PathVariable("name") String name){
+    @PutMapping("/add")
+    public ResponseEntity<Book> createBook(@RequestBody BookRequest request){
+
         Book book;
+        String name = request.getName();
         log.info( "Получен запрос на добавление книги: bookName = {}, ", name );
         try{
             book = service.createBook( name );

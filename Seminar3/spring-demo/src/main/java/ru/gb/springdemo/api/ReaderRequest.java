@@ -8,4 +8,8 @@ public class ReaderRequest {
      * Идентификатор читателя
      */
     private long readerId;
+    /**
+     * Имя читателя
+     */
+    private String name;
 }
