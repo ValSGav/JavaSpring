@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.gb.springdemo.api.IssueRequest;
+import ru.gb.springdemo.model.Book;
 import ru.gb.springdemo.model.Issue;
 import ru.gb.springdemo.model.LogicalException;
 import ru.gb.springdemo.repository.BookRepository;
@@ -11,6 +12,8 @@ import ru.gb.springdemo.repository.IssueRepository;
 import ru.gb.springdemo.repository.ReaderRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -68,5 +71,19 @@ public class IssueService {
             }
         }
         return null;
+    }
+
+    public List<Book> issueReturnBookByUserId(long id){
+
+        List<Book> books = new ArrayList<>();
+        Issue[] issues = issueRepository.getIssuesByReaderId( id);
+        if(issues.length ==0)
+            throw new NoSuchElementException( "У читателя нет выданных книг." );
+        for (Issue issue: issues) {
+            if (issue.getReturnedAt() == null){
+                books.add(bookRepository.getBookById(issue.getBookId()));
+            }
+        }
+        return books;
     }
 }
