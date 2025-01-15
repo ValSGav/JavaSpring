@@ -32,4 +32,8 @@ public class ReaderService {
         }
         return readerRepository.getReaderById( id );
     }
+
+    public Reader[] getAllReaders() {
+        return readerRepository.getAllReaders();
+    }
 }

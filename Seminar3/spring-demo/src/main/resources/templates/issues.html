@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Table of all issues</title>
+</head>
+<body>
+<h1>Table of all issues</h1>
+<table>
+    <tbody><tr>
+        <th>Book</th>
+        <th>Reader</th>
+        <th>Issued at</th>
+        <th>Returned at</th>
+    </tr>
+    <tr th:each="item: ${items}">
+        <td th:text="${item.book}"></td>
+        <td th:text="${item.reader}"></td>
+        <td th:text="${item.dateIssueAt}"></td>
+        <td th:text="${item.dateReturnedAt}"></td>
+    </tr>
+    </tbody></table>
+</body>
+</html>

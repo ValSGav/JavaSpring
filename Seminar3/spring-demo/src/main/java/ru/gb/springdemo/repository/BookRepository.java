@@ -41,4 +41,10 @@ public class BookRepository {
     books.add(book);
     return book;
   }
+
+  public Book[] getAllBook() {
+    return (Book[]) books.stream()
+            .toArray(Book[]::new);
+  }
+
 }

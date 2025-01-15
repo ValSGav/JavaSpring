@@ -39,4 +39,9 @@ public class ReaderRepository {
 
   public void deleteReaderById(long id) {
   }
+
+    public Reader[] getAllReaders() {
+      return (Reader[]) readers.stream()
+              .toArray(Reader[]::new);
+    }
 }

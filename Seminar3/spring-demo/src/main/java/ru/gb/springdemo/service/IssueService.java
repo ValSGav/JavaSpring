@@ -10,12 +10,12 @@ import ru.gb.springdemo.repository.BookRepository;
 import ru.gb.springdemo.repository.IssueRepository;
 import ru.gb.springdemo.repository.ReaderRepository;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
-public class IssuerService {
+public class IssueService {
 
     // спринг это все заинжектит
     private final BookRepository bookRepository;
@@ -23,6 +23,10 @@ public class IssuerService {
     private final IssueRepository issueRepository;
     @Value("${application.max-allowed-books:1}")
     private int maxAllowedBook;
+
+    public Issue[] getAllIssues() {
+        return issueRepository.getAllIssue();
+    }
 
     public Issue issue(IssueRequest request) throws LogicalException {
         if ( bookRepository.getBookById( request.getBookId() ) == null ) {
@@ -50,5 +54,19 @@ public class IssuerService {
 
     public Issue issueInfo(long id) {
         return issueRepository.getIssueByID( id );
+    }
+
+    public Issue issueReturnBook(IssueRequest issueRequest){
+
+        Issue[] issues = issueRepository.getIssuesByReaderId( issueRequest.getReaderId() );
+        if(issues.length ==0)
+            throw new NoSuchElementException( "У читателя нет выданных книг." );
+        for (Issue issue: issues) {
+            if (issue.getBookId() == issueRequest.getBookId()){
+                issue.setReturnedAt( LocalDateTime.now() );
+                return issue;
+            }
+        }
+        return null;
     }
 }

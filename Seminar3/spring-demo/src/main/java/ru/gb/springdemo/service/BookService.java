@@ -21,6 +21,10 @@ public class BookService {
         return bookRepository.getBookById( id );
     }
 
+    public Book[] getAllBook(){
+        return bookRepository.getAllBook();
+    }
+
     public void deleteBook(long id) {
         if ( bookRepository.getBookById( id ) == null ) {
             throw new NoSuchElementException( "Не найдена книга с идентификатором \"" + id + "\"" );
