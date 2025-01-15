@@ -1,10 +1,7 @@
 package ru.gb.springdemo.repository;
 
-import org.springframework.objenesis.ObjenesisHelper;
 import org.springframework.stereotype.Repository;
 import ru.gb.springdemo.model.Issue;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,11 +10,9 @@ import java.util.Objects;
 public class IssueRepository {
 
     private final List<Issue> issues;
-
     public IssueRepository() {
         this.issues = new ArrayList<>();
     }
-
     public void save(Issue issue) {
         // insert into ....
         issues.add( issue );

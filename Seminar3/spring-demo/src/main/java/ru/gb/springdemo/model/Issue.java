@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class Issue {
 
   public static long sequence = 1L;
-
   private final long id;
   private final long bookId;
   private final long readerId;

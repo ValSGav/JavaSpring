@@ -2,10 +2,9 @@ package ru.gb.springdemo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.gb.springdemo.api.IssueRequest;
 import ru.gb.springdemo.model.Book;
 import ru.gb.springdemo.repository.BookRepository;
-
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -21,7 +20,7 @@ public class BookService {
         return bookRepository.getBookById( id );
     }
 
-    public Book[] getAllBook(){
+    public List<Book> getAllBook(){
         return bookRepository.getAllBook();
     }
 
