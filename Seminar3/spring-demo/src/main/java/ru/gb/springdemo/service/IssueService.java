@@ -28,25 +28,25 @@ public class IssueService {
     private int maxAllowedBook;
 
     public Issue[] getAllIssues() {
-        return issueRepository.getAllIssue();
+        return (Issue[]) issueRepository.findAll().toArray();
     }
 
     public Issue issue(IssueRequest request) throws LogicalException {
-        if ( bookRepository.getBookById( request.getBookId() ) == null ) {
+        if ( bookRepository.getById( request.getBookId() ) == null ) {
             throw new NoSuchElementException( "Не найдена книга с идентификатором \"" + request.getBookId() + "\"" );
         }
-        if ( readerRepository.getReaderById( request.getReaderId() ) == null ) {
+        if ( readerRepository.getById( request.getReaderId() ) == null ) {
             throw new NoSuchElementException( "Не найден читатель с идентификатором \"" + request.getReaderId() + "\"" );
         }
 
-        Issue[] issueOnReader = issueRepository.getIssuesByReaderId( request.getReaderId() );
+        Issue[] issueOnReader = (Issue[]) issueRepository.getByReaderId( request.getReaderId() ).stream().toArray();
         if ( issueOnReader.length >= maxAllowedBook ) {
             StringBuilder exceptionCause = new StringBuilder().append( "У читателя на руках книги:  " );
             for (Issue issue : issueOnReader) {
                 exceptionCause
                         .append( "\n" )
                         .append( " книга " )
-                        .append( bookRepository.getBookById( issue.getBookId() ).getName() );
+                        .append( bookRepository.getById( issue.getBookId() ).getName() );
             }
             throw new LogicalException( exceptionCause.toString() );
         }
@@ -56,12 +56,12 @@ public class IssueService {
     }
 
     public Issue issueInfo(long id) {
-        return issueRepository.getIssueByID( id );
+        return issueRepository.getById( id );
     }
 
     public Issue issueReturnBook(IssueRequest issueRequest){
 
-        Issue[] issues = issueRepository.getIssuesByReaderId( issueRequest.getReaderId() );
+        Issue[] issues = (Issue[]) issueRepository.getByReaderId( issueRequest.getReaderId() ).toArray();
         if(issues.length ==0)
             throw new NoSuchElementException( "У читателя нет выданных книг." );
         for (Issue issue: issues) {
@@ -76,12 +76,12 @@ public class IssueService {
     public List<Book> issueReturnBookByUserId(long id){
 
         List<Book> books = new ArrayList<>();
-        Issue[] issues = issueRepository.getIssuesByReaderId( id);
+        Issue[] issues = (Issue[])issueRepository.getByReaderId( id).toArray();
         if(issues.length ==0)
             throw new NoSuchElementException( "У читателя нет выданных книг." );
         for (Issue issue: issues) {
             if (issue.getReturnedAt() == null){
-                books.add(bookRepository.getBookById(issue.getBookId()));
+                books.add(bookRepository.getById(issue.getBookId()));
             }
         }
         return books;
