@@ -67,6 +67,6 @@ public class ReaderRestController {
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.status( HttpStatus.OK ).body(issueRepository.getIssuesByReaderId( readerId ));
+        return ResponseEntity.status( HttpStatus.OK ).body((Issue[]) issueRepository.getByReaderId( readerId ).toArray());
     }
 }
