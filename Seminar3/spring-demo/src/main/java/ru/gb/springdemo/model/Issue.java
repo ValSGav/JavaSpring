@@ -1,9 +1,6 @@
 package ru.gb.springdemo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,28 +13,31 @@ import java.time.LocalDateTime;
 @Table(name = "issues")
 public class Issue {
 
-  public static long sequence = 1L;
+  //public static long sequence = 1L;
 
   @Id
-  private final Long id;
+  @GeneratedValue
+  private  Long id;
   @Column(name = "book_id")
-  private final long bookId;
+  private  long bookId;
   @Column(name = "reader_id")
-  private final long readerId;
+  private  long readerId;
 
   /**
    * Дата выдачи
    */
   @Column(name = "issued_at")
-  private final LocalDateTime issuedAt;
+  private LocalDateTime issuedAt;
   @Column(name = "returned_at")
   private LocalDateTime returnedAt;
 
   public Issue(long bookId, long readerId) {
-    this.id = sequence++;
+    //this.id = sequence++;
     this.bookId = bookId;
     this.readerId = readerId;
     this.issuedAt = LocalDateTime.now();
   }
 
+  public Issue() {
+  }
 }

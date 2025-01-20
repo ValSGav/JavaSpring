@@ -49,15 +49,15 @@ public class ReaderRestController {
     @PutMapping("/add")
     public ResponseEntity<Reader> createReader(@RequestBody ReaderRequest request) {
 
-        Reader reader;
         String name = request.getName();
         log.info( "Получен запрос на добавление читателя: ReaderName = {}, ", name );
         try {
-            reader = service.createReader( name );
+            return ResponseEntity.status( HttpStatus.CREATED ).body( service.createReader( name ) );
+
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
-        return ResponseEntity.status( HttpStatus.CREATED ).body( reader );
+
     }
 
     @GetMapping("/{id}/issue")
