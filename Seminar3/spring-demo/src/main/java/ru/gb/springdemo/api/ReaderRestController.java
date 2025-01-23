@@ -1,5 +1,7 @@
 package ru.gb.springdemo.api;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestController
 @RequestMapping("/reader")
+@Tag(name = "Reader")
 public class ReaderRestController {
     @Autowired
     ReaderService service;
@@ -23,6 +26,7 @@ public class ReaderRestController {
     IssueRepository issueRepository;
 
     @GetMapping("{id}")
+    @Operation(summary = "get reader", description = "Выгружает читателя по Id")
     public ResponseEntity<Reader> readerInfo(@PathVariable("id") long id) {
         final Reader reader;
         log.info( "Получен запрос на получение информации о читателе: ReaderId = {}, ", id );
@@ -35,6 +39,7 @@ public class ReaderRestController {
     }
 
     @DeleteMapping("{id}")
+    @Operation(summary = "delete reader", description = "Удаляет читателя по Id")
     public ResponseEntity<Boolean> deleteReader(@PathVariable("id") long id) {
         final Reader reader;
         log.info( "Получен запрос на удаление читателя: ReaderId = {}, ", id );
@@ -47,6 +52,7 @@ public class ReaderRestController {
     }
 
     @PutMapping("/add")
+    @Operation(summary = "add reader", description = "Добавляет читателя")
     public ResponseEntity<Reader> createReader(@RequestBody ReaderRequest request) {
 
         String name = request.getName();
@@ -61,6 +67,7 @@ public class ReaderRestController {
     }
 
     @GetMapping("/{id}/issue")
+    @Operation(summary = "get issuer by id reader", description = "Выгружает все выданные читателю книги")
     public ResponseEntity<Issue[]> getIssueOnReader(@PathVariable("id") long readerId) {
         try {
             Reader reader = service.ReaderInfo( readerId );
