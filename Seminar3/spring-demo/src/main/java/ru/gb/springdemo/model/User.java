@@ -24,7 +24,7 @@ public class User {
     @Column(name = "NAME")
     private String name;
     @Column(name = "PROFILES")
-    @ManyToMany()
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USER_PROFILES"
             , joinColumns = @JoinColumn(name = "USER_ID")

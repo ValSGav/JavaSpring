@@ -16,38 +16,44 @@ import java.util.HashSet;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    @Autowired
+
     private final UserRepository userRepository;
-    @Autowired
     private final UserProfileRepository userProfileRepository;
 
     @PostConstruct
-    public void createSomeUsers() {
-        UserProfile profileAdmin = userProfileRepository.save( new UserProfile() );
-        UserProfile profileReader = userProfileRepository.save( new UserProfile() );
-        UserProfile profileUser = userProfileRepository.save( new UserProfile() );
+    private void createSomeUsers() {
+        UserProfile profileAdmin = new UserProfile();
+        UserProfile profileReader = new UserProfile();
+        UserProfile profileUser = new UserProfile();
 
-        profileAdmin.setProfile( Profile.ADMIN.toString() );
-        profileReader.setProfile( Profile.READER.toString() );
-        profileUser.setProfile( Profile.USER.toString() );
+        profileAdmin.setProfile(Profile.ADMIN.toString());
+        profileReader.setProfile(Profile.READER.toString());
+        profileUser.setProfile(Profile.USER.toString());
 
-        User userAdmin = userRepository.save( new User() );
-        userAdmin.setName( "Moet" );
-        userAdmin.setLogin( "Admin" );
-        userAdmin.setPassword( "Admin" );
-        userAdmin.setUserProfiles( new HashSet<>( Arrays.asList( profileAdmin, profileUser ) ) );
+        profileAdmin = userProfileRepository.save(profileAdmin);
+        profileUser = userProfileRepository.save(profileUser);
+        profileReader = userProfileRepository.save(profileReader);
 
-        User userUser = userRepository.save( new User() );
-        userAdmin.setName( "Argo" );
-        userAdmin.setLogin( "User" );
-        userAdmin.setPassword( "User" );
-        userAdmin.setUserProfiles( new HashSet<>( Arrays.asList(profileUser ) ) );
+        User userAdmin = new User();
+        userAdmin.setName("Moet");
+        userAdmin.setLogin("Admin");
+        userAdmin.setPassword("Admin");
+        userAdmin.setUserProfiles(new HashSet<>(Arrays.asList(profileAdmin)));
+        userAdmin = userRepository.save(userAdmin);
 
-        User userReader = userRepository.save( new User() );
-        userAdmin.setName( "Master" );
-        userAdmin.setLogin( "Reader" );
-        userAdmin.setPassword( "Reader" );
-        userAdmin.setUserProfiles( new HashSet<>( Arrays.asList( profileReader ) ) );
+        User userUser = new User();
+        userUser.setName("Argo");
+        userUser.setLogin("User");
+        userUser.setPassword("User");
+        userUser.setUserProfiles(new HashSet<>(Arrays.asList(profileUser)));
+        userUser = userRepository.save(userUser);
+
+        User userReader = new User();
+        userReader.setName("Master");
+        userReader.setLogin("Reader");
+        userReader.setPassword("Reader");
+        userReader.setUserProfiles(new HashSet<>(Arrays.asList(profileReader)));
+        userReader = userRepository.save(userReader);
 
 
     }

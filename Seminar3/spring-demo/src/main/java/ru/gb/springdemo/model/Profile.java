@@ -5,9 +5,4 @@ public enum Profile {
     USER,
     READER;
 
-    @Override
-    public String toString() {
-        return new org.apache.commons.lang3.builder.ToStringBuilder( this )
-                .toString();
-    }
 }

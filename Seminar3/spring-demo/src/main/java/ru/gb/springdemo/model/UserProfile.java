@@ -24,7 +24,4 @@ public class UserProfile {
     @Column(name = "PROFILE", length = 15, nullable = false)
     private String Profile = "";
 
-    @ManyToMany(mappedBy = "userProfiles")
-    private Set<User> users;
-
 }

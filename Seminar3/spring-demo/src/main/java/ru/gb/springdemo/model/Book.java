@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "books")
 @Schema(description = "Книга")
 public class Book {
 

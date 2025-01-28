@@ -14,7 +14,6 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class ReaderService {
 
-    @Autowired
     private final ReaderRepository readerRepository;
 
     @PostConstruct

@@ -22,11 +22,9 @@ import java.util.NoSuchElementException;
 public class IssueService {
 
     // спринг это все заинжектит
-    @Autowired
+
     private final BookRepository bookRepository;
-    @Autowired
     private final ReaderRepository readerRepository;
-    @Autowired
     private final IssueRepository issueRepository;
     @Value("${application.max-allowed-books:1}")
     private int maxAllowedBook;
